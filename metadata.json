@@ -1,0 +1,26 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "dima@localhost",
+                "Name": "dima"
+            }
+        ],
+        "Category": "Online Services",
+        "Description": "Shows your DeepSeek API balance",
+        "EnabledByDefault": true,
+        "Icon": "deepseek",
+        "Id": "org.kde.plasma.deepseekbalance",
+        "License": "GPL-3.0+",
+        "Name": "DeepSeek Balance",
+        "ServiceTypes": [
+            "Plasma/Applet"
+        ],
+        "Version": "1.0",
+        "Website": ""
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-MainScript": "ui/main.qml"
+}
