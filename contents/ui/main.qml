@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasmoid
 import org.kde.plasma.components 3.0 as PC3
 import org.kde.kirigami as Kirigami
@@ -11,7 +10,6 @@ PlasmoidItem {
     readonly property string apiKey: Plasmoid.configuration.apiKey ?? ""
     readonly property int refreshInterval: (Plasmoid.configuration.refreshInterval ?? 15) * 60000
     readonly property string deepseekIcon: Qt.resolvedUrl("../icons/deepseek.svg")
-    readonly property bool hasError: errorText !== ""
 
     property string balanceText: "—"
     property string errorText: ""
@@ -32,7 +30,6 @@ PlasmoidItem {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "https://api.deepseek.com/user/balance");
         xhr.setRequestHeader("Authorization", "Bearer " + apiKey);
-        xhr.setRequestHeader("Accept", "application/json");
         xhr.onreadystatechange = function () {
             if (xhr.readyState !== XMLHttpRequest.DONE) {
                 return;
@@ -63,7 +60,7 @@ PlasmoidItem {
 
     Timer {
         interval: root.refreshInterval
-        running: root.apiKey !== ""
+        running: true
         repeat: true
         triggeredOnStart: true
         onTriggered: root.refresh()
@@ -77,7 +74,7 @@ PlasmoidItem {
             spacing: Kirigami.Units.largeSpacing
 
             Kirigami.Icon {
-                source: root.hasError ? "data-error" : root.deepseekIcon
+                source: root.errorText !== "" ? "data-error" : root.deepseekIcon
                 implicitWidth: Kirigami.Units.iconSizes.medium
                 implicitHeight: Kirigami.Units.iconSizes.medium
             }
@@ -108,7 +105,7 @@ PlasmoidItem {
 
             Kirigami.Icon {
                 Layout.alignment: Qt.AlignHCenter
-                source: root.hasError ? "data-error" : root.deepseekIcon
+                source: root.errorText !== "" ? "data-error" : root.deepseekIcon
                 implicitWidth: Kirigami.Units.iconSizes.roundedIconSize(mouseArea.width)
                 implicitHeight: Kirigami.Units.iconSizes.roundedIconSize(mouseArea.width)
                 active: mouseArea.containsMouse
@@ -124,11 +121,4 @@ PlasmoidItem {
         }
     }
 
-    Component.onCompleted: {
-        if (apiKey) {
-            refresh();
-        } else {
-            errorText = i18n("No API key set");
-        }
-    }
 }

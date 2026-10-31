@@ -13,11 +13,7 @@
         "Id": "org.kde.plasma.deepseekbalance",
         "License": "GPL-3.0+",
         "Name": "DeepSeek Balance",
-        "ServiceTypes": [
-            "Plasma/Applet"
-        ],
-        "Version": "1.0",
-        "Website": ""
+        "Version": "1.1"
     },
     "KPackageStructure": "Plasma/Applet",
     "X-Plasma-API": "declarativeappletscript",
